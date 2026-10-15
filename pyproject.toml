@@ -1,0 +1,35 @@
+[project]
+name = "clinical-stream-pipeline"
+version = "1.0.0"
+description = "Healthcare CDC streaming pipeline: Postgres -> Debezium -> Kafka -> Flink -> ClickHouse"
+requires-python = ">=3.10"
+dependencies = [
+    "psycopg[binary]>=3.2,<4",
+    "clickhouse-connect>=0.8,<1",
+    "fastapi>=0.115,<1",
+    "uvicorn>=0.30,<1",
+    "jsonschema>=4.23,<5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<9",
+    "httpx>=0.27,<1",
+    "confluent-kafka>=2.5,<3",
+    "ruff>=0.6",
+]
+
+[tool.setuptools]
+packages = ["pipeline_tools", "generator", "api"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["smoke: requires the docker compose stack to be running (make up jobs)"]
+addopts = "-m 'not smoke'"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "RUF"]

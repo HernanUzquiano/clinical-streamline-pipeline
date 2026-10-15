@@ -1,0 +1,22 @@
+{
+  "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+  "plugin.name": "pgoutput",
+  "publication.name": "ehr_cdc",
+  "publication.autocreate.mode": "disabled",
+  "slot.name": "ehr_cdc_slot",
+  "database.hostname": "postgres",
+  "database.port": "5432",
+  "database.user": "ehr",
+  "database.password": "ehr",
+  "database.dbname": "ehr",
+  "topic.prefix": "ehr",
+  "table.include.list": "public.patients,public.encounters,public.vital_observations",
+  "snapshot.mode": "initial",
+  "decimal.handling.mode": "double",
+  "tombstones.on.delete": "false",
+  "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+  "key.converter.schemas.enable": "false",
+  "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+  "value.converter.schemas.enable": "false",
+  "heartbeat.interval.ms": "10000"
+}
